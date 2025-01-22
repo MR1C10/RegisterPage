@@ -1,7 +1,6 @@
-
 Este projeto tem como objetivo final a criação de uma página de registro.
 
-Objetivos
+--Objetivos
 
 Estou desenvolvendo esta página web de registro para:
 
