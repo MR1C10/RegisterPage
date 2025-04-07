@@ -1,69 +1,53 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="index.css">
-    <link href='https://fonts.googleapis.com/css?family=Pixelify Sans' rel='stylesheet'> <!--Fonte -->
-    <title>Register</title>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="style.css">
+  <title>Formulário</title>
 </head>
 <body>
-    <div class="container_register">
-        
-        <div class="title">
-            <h1>Register your account</h1>
+
+  <div class="container">
+    <h2>Formulário de Cadastro</h2>
+    <form method="POST" action="https://seu-projeto-no-render.onrender.com/enviarFormulario.php">
+
+      <!-- Nome -->
+      <label for="nome">Nome</label>
+      <input type="text" id="nome" name="nome" placeholder="Digite seu nome" required>
+
+      <!-- Gênero e Idade -->
+      <div class="linha-dupla">
+        <div>
+          <label for="genero">Gênero</label>
+          <select id="genero" name="genero" required>
+            <option value="" disabled selected>Selecione</option>
+            <option value="feminino">Feminino</option>
+            <option value="masculino">Masculino</option>
+            <option value="outro">Outro</option>
+          </select>
         </div>
-        
-        <div class="button_test">
-            <button>Test new botton</button>
+
+        <div>
+          <label for="idade">Idade</label>
+          <input type="text" id="idade" name="idade" placeholder="Ex: 18" required>
         </div>
-        
-        <div class="container_question">
-            Hello
-        </div>
-        
-        <div class="input-box">
-            <label for="nome">Nome:</label>
-            <input type="text" id="nome" name="nome" required>
-        </div>
-        
-    </div>
+      </div>
+
+      <!-- Telefone -->
+      <label for="telefone">Telefone</label>
+      <input type="tel" id="telefone" name="telefone" placeholder="(xx) xxxxx-xxxx" required>
+
+      <!-- Linguagens e Tecnologias -->
+      <label for="linguagens">Linguagens e Tecnologias</label>
+      <input type="text" id="linguagens" name="linguagens" placeholder="Ex: C#, HTML, JavaScript" required>
+
+      <!-- Texto -->
+      <label for="porque">Por que você seria um bom membro para o grupo?</label>
+      <textarea id="porque" name="porque" placeholder="Escreva sua resposta aqui..." required></textarea>
+
+      <button type="submit">Enviar</button>
+    </form>
+  </div>
+
 </body>
 </html>
-
-
-
-<!-- <div class="registration-container">
-    <h2>Register</h2>
-    <form action="#" method="POST">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required>
-
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required>
-
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
-
-        <label for="age">Age:</label>
-        <input type="number" id="age" name="age" min="1" required>
-
-        <div class="gender-container">
-            <label>Gender:</label>
-            <div>
-                <input type="radio" id="male" name="gender" value="male" required>
-                <label for="male">Male</label>
-            </div>
-            <div>
-                <input type="radio" id="female" name="gender" value="female" required>
-                <label for="female">Female</label>
-            </div>
-            <div>
-                <input type="radio" id="other" name="gender" value="other" required>
-                <label for="other">Other</label>
-            </div>
-        </div>
-
-        <button type="submit">Register</button>
-    </form>
-</div> -->

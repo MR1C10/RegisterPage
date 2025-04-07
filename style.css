@@ -1,0 +1,96 @@
+* {
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f4f4f4;
+    margin: 0;
+    padding: 0;
+  }
+
+  .container {
+    max-width: 700px;
+    margin: 50px auto;
+    background: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+
+  h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+  }
+
+  label {
+    font-weight: bold;
+    display: block;
+    margin-top: 20px;
+    color: #555;
+  }
+
+  input[type="text"],
+  input[type="tel"],
+  select,
+  textarea {
+    width: 100%;
+    padding: 12px;
+    margin-top: 8px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: border-color 0.3s;
+  }
+
+  input:focus,
+  select:focus,
+  textarea:focus {
+    border-color: #0077cc;
+    outline: none;
+  }
+
+  .linha-dupla {
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+  }
+
+  .linha-dupla > div {
+    flex: 1 1 45%;
+    min-width: 150px;
+  }
+
+  textarea {
+    resize: vertical;
+    height: 120px;
+  }
+
+  button {
+    margin-top: 30px;
+    width: 100%;
+    padding: 14px;
+    background-color: #0077cc;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  button:hover {
+    background-color: #005fa3;
+  }
+
+  @media (max-width: 600px) {
+    .linha-dupla {
+      flex-direction: column;
+    }
+
+    .linha-dupla > div {
+      flex: 1 1 100%;
+    }
+  }
