@@ -4,7 +4,7 @@ use PHPMailer\PHPMailer\Exception;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
-$dotenv->load();
+$dotenv->safeload();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $phpmailer = new PHPMailer(true);
