@@ -26,4 +26,5 @@ I am developing this registration web page to:
 
 I am applying best practices in design and development to ensure an intuitive and functional user experience. If any additional ideas or suggestions arise, I am open to implementing them!
 
-![Register page](https://github.com/user-attachments/assets/e615bc76-d3b8-4b60-8881-7ff59fa89551)
+![image](https://github.com/user-attachments/assets/883c530c-2983-4e06-943d-669f5da295f2)
+
