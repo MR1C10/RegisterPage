@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: registerpage-php
+    env: docker
+    plan: free
+    dockerfilePath: ./dockerfile
+    envVars:
+      - key: APP_ENV
+        value: production
+    autoDeploy: true
