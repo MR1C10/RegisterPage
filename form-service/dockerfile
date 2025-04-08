@@ -1,23 +1,35 @@
-# Imagem base com Apache + PHP
+# Usa imagem oficial do PHP com Apache
 FROM php:8.2-apache
 
-# Instala o Composer copiando da imagem oficial
+# Instala extensões PHP necessárias (ajuste conforme o projeto)
+RUN apt-get update && apt-get install -y \
+    git \
+    unzip \
+    libpng-dev \
+    libonig-dev \
+    libxml2-dev \
+    libzip-dev \
+    zip \
+    && docker-php-ext-install pdo pdo_mysql mbstring zip exif pcntl bcmath
+
+# Copia o Composer da imagem oficial
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Cria diretório do projeto dentro do container
+# Define diretório do projeto
 WORKDIR /var/www/html
 
-# Copia tudo do projeto para dentro do container
-COPY . /var/www/html
+# Copia os arquivos do projeto para o container
+COPY . .
 
-# Define o DocumentRoot como a pasta 'public'
+# Define a pasta pública como DocumentRoot
 RUN sed -i 's|/var/www/html|/var/www/html/public|' /etc/apache2/sites-available/000-default.conf
 
-# Roda o composer install na pasta onde está o composer.json
-RUN composer install
+# Instala as dependências do Composer
+RUN composer install --no-interaction --prefer-dist --optimize-autoloader
 
 # Ajusta permissões para o Apache
-RUN chown -R www-data:www-data /var/www/html
+RUN chown -R www-data:www-data /var/www/html \
+    && a2enmod rewrite
 
-# Expõe a porta 80
+# Expõe a porta padrão
 EXPOSE 80
