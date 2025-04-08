@@ -33,3 +33,5 @@ RUN chown -R www-data:www-data /var/www/html \
 
 # Expõe a porta padrão
 EXPOSE 80
+
+COPY . /var/www/html
