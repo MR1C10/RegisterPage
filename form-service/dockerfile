@@ -15,23 +15,21 @@ RUN apt-get update && apt-get install -y \
 # Copia o Composer da imagem oficial
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Define diretório do projeto
+# Define o diretório de trabalho dentro do container
 WORKDIR /var/www/html
 
-# Copia os arquivos do projeto para o container
+# Copia todos os arquivos do projeto para o container
 COPY . .
 
-# Define a pasta pública como DocumentRoot
+# Configura o Apache: define a pasta "public" como DocumentRoot
 RUN sed -i 's|/var/www/html|/var/www/html/public|' /etc/apache2/sites-available/000-default.conf
 
-# Instala as dependências do Composer
+# Instala as dependências do Composer (usando o composer.json presente na raiz ou na pasta correta)
 RUN composer install --no-interaction --prefer-dist --optimize-autoloader
 
-# Ajusta permissões para o Apache
+# Ajusta permissões para que o Apache tenha acesso aos arquivos e ativa o mod_rewrite
 RUN chown -R www-data:www-data /var/www/html \
     && a2enmod rewrite
 
-# Expõe a porta padrão
+# Expõe a porta padrão 80
 EXPOSE 80
-
-COPY . /var/www/html
