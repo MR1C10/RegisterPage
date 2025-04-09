@@ -53,22 +53,42 @@ SMTP_PASS=senha
 Local: `form-service/dockerfile`
 
 ```Dockerfile
+# Usa imagem do PHP com o Apache
 FROM php:8.2-apache
 
+# Instala extensões PHP necessárias
 RUN apt-get update && apt-get install -y \
-    git unzip libpng-dev libonig-dev libxml2-dev libzip-dev zip \
+    git \
+    unzip \
+    libpng-dev \
+    libonig-dev \
+    libxml2-dev \
+    libzip-dev \
+    zip \
     && docker-php-ext-install pdo pdo_mysql mbstring zip exif pcntl bcmath
 
+# Copia o Composer da imagem oficial
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
+# Define o diretório de trabalho dentro do container
 WORKDIR /var/www/html
+
+# Copia todos os arquivos do projeto para o container
 COPY . .
 
+# Configura o Apache: define a pasta "public" como DocumentRoot
 RUN sed -i 's|/var/www/html|/var/www/html/public|' /etc/apache2/sites-available/000-default.conf
-RUN composer install --no-interaction --prefer-dist --optimize-autoloader
-RUN chown -R www-data:www-data /var/www/html && a2enmod rewrite
 
+# Instala as dependências do Composer (usando o composer.json presente na raiz ou na pasta correta)
+RUN composer install --no-interaction --prefer-dist --optimize-autoloader
+
+# Ajusta permissões para que o Apache tenha acesso aos arquivos e ativa o mod_rewrite
+RUN chown -R www-data:www-data /var/www/html \
+    && a2enmod rewrite
+
+# Expõe a porta padrão 80
 EXPOSE 80
+
 ```
 
 ---
