@@ -117,7 +117,7 @@ sservices:
 No `index.html`, defina a ação do formulário para o domínio do Render:
 
 ```html
-<form action="https://registerpage-php.onrender.com/enviarFormulario.php" method="POST">
+<form action="https://link-do-render.com/enviarFormulario.php" method="POST">
   <!-- Campos aqui -->
 </form>
 ```
