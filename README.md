@@ -98,23 +98,16 @@ EXPOSE 80
 ### `render.yaml`
 
 ```yaml
-services:
+sservices:
   - type: web
     name: registerpage-php
     env: docker
-    dockerfilePath: form-service/dockerfile
-    rootDirectory: .
     plan: free
-    autoDeploy: true
+    dockerfilePath: ./dockerfile
     envVars:
-      - key: SMTP_HOST
-        value: smtp.smtp2go.com
-      - key: SMTP_PORT
-        value: 465
-      - key: SMTP_USER
-        value: mr1c10
-      - key: SMTP_PASS
-        value: SUA_SENHA_SECRETA
+      - key: APP_ENV
+        value: production
+    autoDeploy: true
 ```
 
 ---
@@ -136,46 +129,51 @@ No `index.html`, defina a ação do formulário para o domínio do Render:
 Local: `form-service/public/enviarFormulario.php`
 
 ```php
-require '../vendor/autoload.php';
-
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
-$dotenv->safeLoad(); // evita erro se .env estiver ausente
-
+<?php
 use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require_once __DIR__ . '/../vendor/autoload.php';
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
+$dotenv->safeload();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $mail = new PHPMailer(true);
+    $phpmailer = new PHPMailer(true);
+
     try {
-        $mail->isSMTP();
-        $mail->Host = $_ENV['SMTP_HOST'];
-        $mail->SMTPAuth = true;
-        $mail->Username = $_ENV['SMTP_USER'];
-        $mail->Password = $_ENV['SMTP_PASS'];
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
-        $mail->Port = $_ENV['SMTP_PORT'];
+        $phpmailer->isSMTP();
+        $phpmailer->SMTPAuth = true;
+        $phpmailer->Host = $_ENV['SMTP_HOST'];
+        $phpmailer->Port = $_ENV['SMTP_PORT'];
+        $phpmailer->Username = $_ENV['SMTP_USER'];
+        $phpmailer->Password = $_ENV['SMTP_PASS'];
+        $phpmailer->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
 
-        $mail->setFrom('seu@email.com', $_POST['nome']);
-        $mail->addAddress('destino@email.com');
+        $phpmailer->setFrom('seu@email.com', $_POST['nome']);
+        $phpmailer->addAddress('destino@email.com');
 
-        $mail->isHTML(true);
-        $mail->Subject = 'Nova inscrição';
-        $mail->Body = "
-            <h2>Nova inscrição:</h2>
+        $phpmailer->isHTML(true);
+        $phpmailer->Subject = 'Nova inscrição recebida';
+        $phpmailer->Body = "
+            <h2>Nova inscrição no formulário:</h2>
             <p><strong>Nome:</strong> {$_POST['nome']}</p>
             <p><strong>Gênero:</strong> {$_POST['genero']}</p>
             <p><strong>Idade:</strong> {$_POST['idade']}</p>
             <p><strong>Telefone:</strong> {$_POST['telefone']}</p>
-            <p><strong>Linguagens:</strong> {$_POST['linguagens']}</p>
+            <p><strong>Linguagens e Tecnologias:</strong> {$_POST['linguagens']}</p>
             <p><strong>Motivo:</strong><br>{$_POST['porque']}</p>
         ";
 
-        $mail->send();
-        echo "Email enviado!";
+        if ($phpmailer->send()) {
+            echo 'Email enviado com sucesso!';
+        } else {
+            echo 'Erro ao enviar e-mail.';
+        }
     } catch (Exception $e) {
-        echo "Erro: {$mail->ErrorInfo}";
+        echo "Erro ao enviar e-mail: {$phpmailer->ErrorInfo}";
     }
 } else {
-    echo "Requisição inválida.";
+    echo "Método de requisição inválido.";
 }
 ```
 
