@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $phpmailer->addAddress('mauriciorcsouza1206@gmail.com');
 
         $phpmailer->isHTML(true);
-        $phpmailer->Subject = 'Nova inscrição recebida';
+        $phpmailer->Subject = 'Nova cadastro recebida';
         $phpmailer->Body = "
             <h2>Nova inscrição no formulário:</h2>
             <p><strong>Nome:</strong> {$_POST['nome']}</p>
