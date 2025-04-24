@@ -19,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $phpmailer->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
 
         $phpmailer->setFrom('mauricio.souza@frsp.org', $_POST['nome']);
-        $phpmailer->addAddress('mauriciorodriguesoficial@gmail.com');
+        $phpmailer->addAddress('mauriciorcsouza1206@gmail.com');
 
         $phpmailer->isHTML(true);
         $phpmailer->Subject = 'Nova inscrição recebida';
