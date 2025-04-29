@@ -1,4 +1,5 @@
 <?php
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
@@ -18,8 +19,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $phpmailer->Password = $_ENV['SMTP_PASS'];
         $phpmailer->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
 
-        $phpmailer->setFrom('mauricio.souza@frsp.org', $_POST['nome']);
-        $phpmailer->addAddress('mauriciorcsouza1206@gmail.com');
+        $emailEnv = $_ENV['EMAIL_ENVIO'];
+        $emailRec = $_ENV['EMAIL_RECEB'];
+
+        $phpmailer->setFrom($emailEnv, $_POST['nome']);
+        $phpmailer->addAddress($emailRec);
 
         $phpmailer->isHTML(true);
         $phpmailer->Subject = 'Novo cadastro recebida';
